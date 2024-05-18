@@ -44,22 +44,30 @@ class gallows {
         System.out.println("|");
         System.out.println("---------");
         randomWordSelection(dictionary);
+
+
+
+        // отобразить счётчик ошибок и введённые ранее буквы
+        // предложить ввод буквы
     }
 
     public static void randomWordSelection(ArrayList<String> dictionary) {
         Random randIndex = new Random();
         String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
-        System.out.println(randomElement);
+        makeWord(randomElement);
     }
 
+    public static void makeWord(String randomElement) {
+        // сюда передал выбранное слово
+        // в символьную переменную нужно положить символ, которым будет накладываться маска
+        // создать переменные, в которые положить начальный индекс строки (слова) и конечный индекс
+        // циклом for и методом setCharAt() накладывать маску на слово, но нужно найти способ выбирать случайный диапазон накладывания маски
 
 
 
 
-    public static void makeWord() {
         // отобразить загаданное слово, наложив на него маску и открыв две случайные буквы
-        // отобразить счётчик ошибок и введённые ранее буквы
-        // предложить ввод буквы
+
     }
 
 
