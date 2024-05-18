@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 class gallows {
@@ -11,7 +12,6 @@ class gallows {
         Scanner decision = new Scanner(System.in);
         System.out.println("Для начала игры введите Да или Нет.");
         String startVar = decision.nextLine();
-
         if (startVar.equals("Да")) {
             startGame();
             break;
@@ -32,24 +32,34 @@ class gallows {
         while(readTextFile.hasNextLine()) {
             dictionary.add(readTextFile.nextLine());
         }
-
         readTextFile.close();
-
-        System.out.println(dictionary);
-
-        // нарисовать пустой каркас виселицы
-
-        // отобразить счётчик ошибок и введённые ранее буквы
-        // предложить ввод буквы
-
+        System.out.println("---------");
+        System.out.println("|      |");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("|");
+        System.out.println("---------");
+        randomWordSelection(dictionary);
     }
 
-    public static void randomWordSelection() {
-        // случайным образом выбрать слово из словаря
+    public static void randomWordSelection(ArrayList<String> dictionary) {
+        Random randIndex = new Random();
+        String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
+        System.out.println(randomElement);
     }
+
+
+
+
 
     public static void makeWord() {
         // отобразить загаданное слово, наложив на него маску и открыв две случайные буквы
+        // отобразить счётчик ошибок и введённые ранее буквы
+        // предложить ввод буквы
     }
 
 
