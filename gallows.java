@@ -54,10 +54,37 @@ class gallows {
     public static void randomWordSelection(ArrayList<String> dictionary) {
         Random randIndex = new Random();
         String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
-        makeWord(randomElement);
+
+        int wordLength = randomElement.length();
+        int minIndex = 0;
+        int maxIndex = wordLength;
+        int randomMask1 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex);
+        int randomMask2 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex);
+        char mask = '*';
+
+        makeWord(randomElement, wordLength, minIndex, maxIndex, randomMask1, randomMask2, mask);
+
+        System.out.println(makeWord(randomElement, wordLength, minIndex, maxIndex, randomMask1, randomMask2, mask));
+
+
     }
 
-    public static void makeWord(String randomElement) {
+    public static String makeWord(String randomElement, int wordLength, int minIndex, int maxIndex, int randomMask1, int randomMask2, char mask)  {
+
+    StringBuilder hiddenWord = new StringBuilder(randomElement);
+    for (int count = minIndex; count <= maxIndex; count++) {
+        hiddenWord.charAt(mask);
+    }
+    return hiddenWord.toString();
+
+
+
+
+        // System.out.println(randomElement + " " +  wordLength + " " + randomMask1 + " " + randomMask2);
+
+
+
+
         // сюда передал выбранное слово
         // в символьную переменную нужно положить символ, которым будет накладываться маска
         // создать переменные, в которые положить начальный индекс строки (слова) и конечный индекс
