@@ -52,15 +52,15 @@ class gallows {
     }
 
     public static void randomWordSelection(ArrayList<String> dictionary) {
-        Random randIndex = new Random();
-        String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
+        Random randIndex = new Random(); //
+        String randomElement = dictionary.get(randIndex.nextInt(dictionary.size())); //выбираю случайное слово из словаря
 
-        int wordLength = randomElement.length();
-        int minIndex = 0;
-        int maxIndex = wordLength;
-        int randomMask1 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex);
-        int randomMask2 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex);
-        char mask = '*';
+        int wordLength = randomElement.length(); // получаю длину слова
+        int minIndex = 0; // стартовый индекс слова
+        int maxIndex = wordLength; // конечный индекс слова
+        int randomMask1 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex); // первый случайный символ, который хочу открыть
+        int randomMask2 = (int)(Math.random()*(maxIndex - minIndex + 1) + minIndex); // второй случайный символ, который хочу открыть
+        char mask = '*'; // символ, которым буду скрывать слово
 
         makeWord(randomElement, wordLength, minIndex, maxIndex, randomMask1, randomMask2, mask);
 
@@ -71,11 +71,11 @@ class gallows {
 
     public static String makeWord(String randomElement, int wordLength, int minIndex, int maxIndex, int randomMask1, int randomMask2, char mask)  {
 
-    StringBuilder hiddenWord = new StringBuilder(randomElement);
+    StringBuilder hiddenWord = new StringBuilder(randomElement); // в этом классе хочу поменять символы слова на символ из переменной mask
     for (int count = minIndex; count <= maxIndex; count++) {
-        hiddenWord.charAt(mask);
+        hiddenWord.charAt(mask); // заменяю символы слова на символ из mask
     }
-    return hiddenWord.toString();
+    return hiddenWord.toString(); // возвращаю скрытую маской строку
 
 
 
