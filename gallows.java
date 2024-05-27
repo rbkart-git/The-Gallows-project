@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class gallows {
 
     /*меню игры*/
     public static void main(String[] args) throws FileNotFoundException {
+
+        /* Меню игры */
         boolean flag = false;
         Scanner decision = new Scanner(System.in);
         do {
@@ -30,6 +34,8 @@ class gallows {
 
     /*начало игры*/
     public static void startGame() throws FileNotFoundException {
+
+        /* Создаю словарь слов */
         File textFile = new File("D:\\Repositories\\The Gallows project\\dictionary.txt");
         Scanner readTextFile = new Scanner(textFile);
         ArrayList<String> dictionary = new ArrayList<String>();
@@ -39,9 +45,7 @@ class gallows {
         }
         readTextFile.close();
 
-        int errorCounter = 0; // счётчик ошибок
-        ArrayList<String> lettersEntered = new ArrayList<>(); // сюда буду записывать буквы, которые ввёл пользователь
-
+        /* Выбираю случайное слово из словаря и накладываю на него маску */
         Random randIndex = new Random();
         String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
         int wordLength = randomElement.length();
@@ -52,8 +56,6 @@ class gallows {
         } else if (wordLength > 1 && wordLength < 11 || wordLength > 11 || wordLength < 21) {
             System.out.println("Слово состоит из " + wordLength + " букв");
         }
-        System.out.println("Ошибок допущено: " + errorCounter);
-        System.out.println("Введённые ранее буквы: " + lettersEntered);
         System.out.println("---------");
         System.out.println("|       |");
         System.out.println("|");
@@ -65,45 +67,34 @@ class gallows {
         System.out.println("|");
         System.out.println("---------");
 
+        /*Валидация введённого символа*/
+        boolean flag = false;
         Scanner letterEntered = new Scanner(System.in);
-        System.out.println("Введите букву");
-        String letter = letterEntered.nextLine();
-        letterEntered.close();
-
         do {
-            boolean flag = false;
-            String numbers = "0123456789";
-            int value = numbers.indexOf(letter);
-            if (value != -1) {
-                flag = true;
+            System.out.println("Введите букву");
+            String letter = letterEntered.nextLine();
+            Pattern patternCyrillic = Pattern.compile("[а-яА-Я]");
+            Matcher matcherCyrillic = patternCyrillic.matcher(letter);
+
+            if (matcherCyrillic.find()) {
+                comparingCharacterInWord(hiddenWord, letter);
+                break;
             } else {
-                flag = false;
+                System.out.println("Символ введён неправильно, повторите ввод.");
+                flag = true;
             }
-
-            /* реализовать if...else на основе сравнение символа строки со строками "0123456789" и "абвгдезжикмино   и т.д." "abcdefghi  и т.д."
-            * это должно быть в теле цикла и при вводе числа, специального символа или английской буквы выводиться сообщение о неккоректном вводе
-            * и повторяться ввод;
-            *   */
-
-
-
-        } while(true);
-
-
-
-
-        bodyOfTheGame(errorCounter, lettersEntered, letter, randomElement, hiddenWord);
+        } while(flag = true);
+        letterEntered.close();
     }
 
-    public static void bodyOfTheGame(int errorCounter, ArrayList<String> lettersEntered, String letter, String randomElement, String hiddenWord) {
+    /*сравнение введённого символа с выбранным словом из словаря*/
+    public static void comparingCharacterInWord(String hiddenWord, String letter) {
+        int errorCounter = 0; // счётчик ошибок
+        ArrayList<String> lettersEntered = new ArrayList<>(); // сюда буду записывать буквы, которые ввёл пользователь
+        lettersEntered.add(letter);
 
-
-
-
+        System.out.println("Введённые символы: " + lettersEntered);
+        System.out.println("Ошибок допущено: " + errorCounter);
     }
-
-
-
-
 
 }
