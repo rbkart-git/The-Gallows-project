@@ -53,9 +53,11 @@ class gallows {
         String hiddenWord = mask.repeat(wordLength);
         if (wordLength == 1 || wordLength == 11) {
             System.out.println("Слово состоит из " + wordLength + " буквы");
-        } else if (wordLength > 1 && wordLength < 11 || wordLength > 11 || wordLength < 21) {
+        } else if (wordLength > 1 && wordLength <= 11 || wordLength > 11 || wordLength < 21) {
             System.out.println("Слово состоит из " + wordLength + " букв");
         }
+        System.out.println("Загаданное слово: " + hiddenWord);
+        System.out.println(randomElement);
         System.out.println("---------");
         System.out.println("|       |");
         System.out.println("|");
@@ -77,7 +79,7 @@ class gallows {
             Matcher matcherCyrillic = patternCyrillic.matcher(letter);
 
             if (matcherCyrillic.find()) {
-                comparingCharacterInWord(hiddenWord, letter);
+                comparingCharacterInWord(hiddenWord, letter, randomElement);
                 break;
             } else {
                 System.out.println("Символ введён неправильно, повторите ввод.");
@@ -87,14 +89,60 @@ class gallows {
         letterEntered.close();
     }
 
-    /*сравнение введённого символа с выбранным словом из словаря*/
-    public static void comparingCharacterInWord(String hiddenWord, String letter) {
+    /* сравнение введённого символа с выбранным словом из словаря */
+    public static void comparingCharacterInWord (String hiddenWord, String letter, String randomElement) {
         int errorCounter = 0; // счётчик ошибок
         ArrayList<String> lettersEntered = new ArrayList<>(); // сюда буду записывать буквы, которые ввёл пользователь
         lettersEntered.add(letter);
 
-        System.out.println("Введённые символы: " + lettersEntered);
-        System.out.println("Ошибок допущено: " + errorCounter);
+        int indexLetter = randomElement.indexOf(letter);
+        if (indexLetter == -1) {
+            letterIncorrect(errorCounter, lettersEntered, letter);
+        } else {
+            letterCorrect(errorCounter, lettersEntered, indexLetter);
+        }
     }
+
+    /* буква введена правильно */
+    public static void letterCorrect (int errorCounter, ArrayList lettersEntered, int indexLetter) {
+
+    }
+
+
+    /* буква введена неправильно */
+    public static void letterIncorrect (int errorCounter, ArrayList lettersEntered, String letter) {
+        while (errorCounter <= 6) {
+            errorCounter++;
+            lettersEntered.add(letter);
+
+
+
+
+
+        }
+
+        switch (errorCounter) {
+            case 1:
+                System.out.println("---------");
+                System.out.println("|       |");
+                System.out.println("|       0");
+                System.out.println("|");
+                System.out.println("|");
+                System.out.println("|");
+                System.out.println("|");
+                System.out.println("|");
+                System.out.println("|");
+                System.out.println("---------");
+
+
+        }
+
+
+
+
+
+
+    }
+
 
 }
