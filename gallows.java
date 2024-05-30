@@ -1,23 +1,60 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
 class gallows {
-    public static void main(String[] args) {
-        // startgame();
+    public static void main(String[] args) throws FileNotFoundException {
+        startGame();
+        while (startGame().equals("y")) {
+            loadDictionary();
+            choosingRandomWord(loadDictionary());
+            hideWordMask(choosingRandomWord());
+        }
     }
 
-    public static void startGame() {
-        // старт игры на основе цикла do while и if else
+    // старт игры
+    public static String startGame() {
+        Scanner decision = new Scanner(System.in);
+        String answer = "";
+        while(!answer.equals("y") && !answer.equals("n")) {
+            System.out.println("Начинаем игру - y/n");
+            answer = decision.nextLine();
+            switch (answer) {
+                case "y" -> System.out.println("Запускаю игру...");
+                case "n" -> System.out.println("Игра окончена. Всего хорошего.");
+                default -> System.out.println("Недопустимое значение. Повторите ввод.");
+            }
+        }
+        return answer;
     }
 
-    public static void loadDictionary() {
-        // загрузка словаря
-        // размещение его в динамическом массиве
+    // загрузка словаря и размещение его в динамическом массиве
+    public static ArrayList<String> loadDictionary() throws FileNotFoundException {
+        File textFile = new File("D:\\Repositories\\The Gallows project\\dictionary.txt");
+        Scanner readTextFile = new Scanner(textFile);
+        ArrayList<String> dictionary = new ArrayList<String>();
+        while (readTextFile.hasNextLine()) {
+            dictionary.add(readTextFile.nextLine());
+        }
+        readTextFile.close();
+        return dictionary;
     }
 
-    public static void choosingRandomWord () {
-        // выбор случайного слова из словаря
+    // выбор случайного слова из словаря
+    public static String choosingRandomWord (ArrayList<String> dictionary) {
+        Random randIndex = new Random();
+        String randomElement = dictionary.get(randIndex.nextInt(dictionary.size()));
+        return randomElement;
     }
 
-    public static void hideWordMask () {
-        // наложить маску на слово
+    // наложение маски на выбранное слово
+    public static String hideWordMask (String randomElement) {
+        int wordLength = randomElement.length();
+        String mask = "*";
+        String hiddenWord = mask.repeat(wordLength);
+        return hiddenWord;
     }
 
     public static void createGameParameters () {
